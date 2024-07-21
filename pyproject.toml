@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "from_sql_to_excel"
+version = "0.1.0"
+description = ""
+authors = ["katarzynamariaelzbieta <kasia.gajc@wp.pl>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.2.2"
+gspread = "^6.1.2"
+python-dotenv = "^1.0.1"
+psycopg2-binary = "^2.9.9"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
