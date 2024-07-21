@@ -1,3 +1,6 @@
+import argparse
+import datetime
+import logging
 import os.path
 
 import pandas as pd
@@ -20,28 +23,33 @@ def insert_to_gsheet(ws, data_frame):
 
 
 def get_data_from_gsheet(ws):
-    dataframe = pd.DataFrame(worksheet.get_all_records())
-    print(dataframe)
+    dataframe = pd.DataFrame(ws.get_all_records())
 
 
 def connect_to_worksheet(workbook_name, worksheet_name, create_new_sheet=False, rows=100, cols=10):
     wb = client.open(workbook_name)
-    if create_new_sheet:
+    if create_new_sheet is True:
         ws = wb.add_worksheet(worksheet_name, rows, cols)
     else:
         ws = wb.worksheet(worksheet_name)
     return ws
 
 
-if __name__ == '__main__':
-    wb_name = 'Plik testowy'
-    ws_name = 'Arkusz testowy'
-    sql_file = 'first_query.sql'
+def main(wb_name, ws_name='Arkusz testowy', sql_file='first_query.sql', create_new_sheet=False):
     columns_names = ('id', 'col1', 'col2')
-
     load_dotenv()
     df = get_data(sql_file, columns_names)
-    worksheet = connect_to_worksheet(wb_name, ws_name, False)
+    worksheet = connect_to_worksheet(wb_name, ws_name, create_new_sheet)
     get_data_from_gsheet(worksheet)
     insert_to_gsheet(worksheet, df)
 
+
+if __name__ == '__main__':
+    logging.log(0, datetime.datetime.now())
+    parser = argparse.ArgumentParser()
+    parser.add_argument("wb", help="name of workbook")
+    parser.add_argument("ws", help="name of worksheet")
+    parser.add_argument("sql_f", help="name of sql file")
+    parser.add_argument("create_new_sh", help="")
+    args = parser.parse_args()
+    main(args.wb, args.ws, args.sql_f, args.create_new_sh)

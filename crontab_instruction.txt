@@ -1,0 +1,2 @@
+* 18 21 07 * . $HOME/.bashrc && cd ~/projects/from_sql_to_excel/ && poetry run python main.py 'Plik testowy' 'Arkusz2' 'first_query.sql' False > /tmp/logs_test
+* 18 21 07 * . $HOME/.bashrc && cd ~/projects/from_sql_to_excel/ && poetry run python main.py 'Plik testowy' 'Arkusz3' 'second_query.sql' True > /tmp/logs2_test
